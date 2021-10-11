@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -61,16 +62,21 @@ public class Activity2 extends AppCompatActivity {
     private void calculBiere(){
         resultats.setVisibility(View.VISIBLE);
 
-        recette.setVolumeB(Double.parseDouble(volumeBiere.getText().toString()));
-        recette.setDegreB(Double.parseDouble(degreAlcool.getText().toString()));
-        recette.setEbc(Double.parseDouble(moyenneEBC.getText().toString()));
+        try{
+            recette.setVolumeB(Double.parseDouble(volumeBiere.getText().toString()));
+            recette.setDegreB(Double.parseDouble(degreAlcool.getText().toString()));
+            recette.setEbc(Double.parseDouble(moyenneEBC.getText().toString()));
 
-        quantiteHoublonAm.setText("Quantité de houblon amérisant : " + recette.calculHoublonAmerisant() + "g");
-        quantiteHoublonAr.setText("Quantité de houble aromatique : " + recette.calculHoublonAromatique() + "g");
-        quantiteMalt.setText("Quantité de malt : " + recette.quantiteMalt() + "kg");
-        volEauRinc.setText("Volume d'eau de rinçage : " + recette.quantiteEauRincage() + " L");
-        volEauBrass.setText("Volume d'eau de brassage : " + recette.quantiteEauBrassage() + " L");
-        quantiteLevure.setText("Quantité de levure : " + recette.calculLevure() + " g");
+            quantiteHoublonAm.setText("Quantité de houblon amérisant : " + recette.calculHoublonAmerisant() + "g");
+            quantiteHoublonAr.setText("Quantité de houble aromatique : " + recette.calculHoublonAromatique() + "g");
+            quantiteMalt.setText("Quantité de malt : " + recette.quantiteMalt() + "kg");
+            volEauRinc.setText("Volume d'eau de rinçage : " + recette.quantiteEauRincage() + " L");
+            volEauBrass.setText("Volume d'eau de brassage : " + recette.quantiteEauBrassage() + " L");
+            quantiteLevure.setText("Quantité de levure : " + recette.calculLevure() + " g");
+        }catch(Exception e){
+            initBlanc();
+            Toast.makeText(this, "Veuillez remplir les valeurs !", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void recupSerialize(Context contexte){

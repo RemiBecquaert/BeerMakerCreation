@@ -40,22 +40,35 @@ public class Recette implements Serializable{
 
 
     public double quantiteMalt(){
-        return (volumeB*degreB)/20;
+        return arrondir((volumeB*degreB)/20, 2);
     }
 
     public double quantiteEauBrassage(){
-        return quantiteMalt()*2.8;
+        return arrondir(quantiteMalt()*2.8, 2);
     }
 
-    public double quantiteEauRincage(){
-        return (volumeB*1.25)-(quantiteEauBrassage()*0.7);
+    public double quantiteEauRincage(){ return arrondir((volumeB*1.25)-(quantiteEauBrassage()*0.7), 2);
     }
 
-    public double calculLevure(){
-        return volumeB/2;
+    public double calculLevure(){ return arrondir (volumeB/2,2);
     }
 
-    public double calculHoublonAmerisant(){ return volumeB*3; }
+    public double calculHoublonAmerisant(){ return arrondir(volumeB*3, 2); }
 
-    public double calculHoublonAromatique(){ return volumeB*1; }
+    public double calculHoublonAromatique(){ return arrondir(volumeB*1, 2); }
+
+    public double calculEBC(){
+        return arrondir((4.23 *(ebc*0.5))/volumeB, 2);
+    }
+    public static double arrondir (double chiffre, int nbChiffreApresVirgule){
+        double chiffreArrond;
+        String nbC = "1";
+        for (int i=0; i<nbChiffreApresVirgule; i++){
+            nbC+="0";
+        }
+        Integer arrond = Integer.parseInt(nbC);
+        chiffreArrond = (double)Math.round(chiffre * arrond) / arrond;
+        return chiffreArrond;
+    }
+
 }
